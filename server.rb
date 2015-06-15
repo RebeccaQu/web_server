@@ -14,20 +14,20 @@ loop do                                             # Server runs forever
     lines << line.chomp
   end
   puts lines                                        # Output the full request to stdout
+  
+  filename = "index.html"
+  response = File.read(filename)
 
-  response = "
-  <!DOCTYPE html>
-  <html>
-  	<head>
-  		<title> My first web server </title>
-  	<head>
-  	<body>
-  		<h1> My first web server </h>
-  		<p> Oh hey, this is my first HTML response! </p>
-  	<body>
-  </html>"
+  filename = lines[0].gsub(/GET \//, "").gsub(/\ HTTP.*/, "")
+
+  if File.exists?(filename)
+    response_body = File.read(filname)
+  else
+    response_body = "File Not Found\n"
 
   client.puts(Time.now.ctime)                       # Output the current time to the client
   client.puts(response)
   client.close                                      # Disconnect from the client
 end
+
+
